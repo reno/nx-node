@@ -1,11 +1,11 @@
 import express, { Request, Response } from 'express';
-import { generateRandomGreeting } from '@libs/greetings';
+import { greetings } from '@libs/greetings';
 
 const app = express()
 app.use(express.json())
 
-app.get('/', (req: Request, res: Response) => {
-  const greeting = generateRandomGreeting()
+app.get('/hello', (req: Request, res: Response) => {
+  const greeting = greetings()
   res.json(greeting)
 })
 

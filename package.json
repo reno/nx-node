@@ -1,4 +1,11 @@
 {
+  "scripts": {
+    "tsc": "nx run-many --target=tsc --nx-bail=true",
+    "lint": "nx run-many --target=lint --nx-bail=true",
+    "test": "nx run-many --target=test --nx-bail=true",
+    "build": "nx run-many --target=build --nx-bail=true",
+    "serve": "nx run-many --target=serve"
+  },
   "dependencies": {
     "express": "^4.18.2",
     "google-translate": "^3.0.0",

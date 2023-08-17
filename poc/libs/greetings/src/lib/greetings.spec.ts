@@ -1,10 +1,7 @@
-import { generateRandomGreeting } from './greetings';
-import { googleTranslate } from 'google-translate';
+import { greetings } from './greetings';
 
 describe('translate', () => {
-  test('Deve retornar a string "hello world" em um idioma aleatório', () => {
-    const greeting = generateRandomGreeting()
-    const englishTranslation = googleTranslate.translate(greeting, { to: 'english' })
-    expect(englishTranslation).toBe('hello world');
+  test('Deve retornar a string "hello world"', () => {
+    expect(greetings()).toEqual('hello world');
   })
 })

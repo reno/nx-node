@@ -13,13 +13,16 @@ describe('Express App', () => {
    })
 
   it('deve retornar 200', async () => {
-    const response = await axios.get('http://localhost:3000')
+    const response = await axios.get('http://localhost:3000/hello')
     expect(response.status).toEqual(200)
   })
 
   it('deve retornar 404', async () => {
-    const response = await axios.get('http://localhost:3000/something')
-    expect(response.status).toEqual(404)
+    try {
+      await axios.get('http://localhost:3000/something')
+    } catch (error) {
+      expect(error.response.status).toEqual(404)
+    }
   })
 })
 
