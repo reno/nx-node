@@ -1,9 +1,11 @@
 import express, { Request, Response } from 'express';
+import { generateRandomGreeting } from '@libs/greetings';
 
 const app = express();
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
+  const greeting = generateRandomGreeting()
+  res.json(greeting);
 })
 
 app.get('*', (req: Request, res: Response) => {
