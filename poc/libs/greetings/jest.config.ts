@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'poc-libs--greetings',
+  displayName: 'greetings',
   preset: '../../../jest.preset.js',
   testEnvironment: 'node',
   transform: {

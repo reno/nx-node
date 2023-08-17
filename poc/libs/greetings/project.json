@@ -1,5 +1,5 @@
 {
-  "name": "poc-libs--greetings",
+  "name": "greetings",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "poc/libs/greetings/src",
   "projectType": "library",

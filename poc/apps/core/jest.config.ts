@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'poc-apps-core',
+  displayName: 'core',
   preset: '../../../jest.preset.js',
   testEnvironment: 'node',
   transform: {

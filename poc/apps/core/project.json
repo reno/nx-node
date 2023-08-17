@@ -1,5 +1,5 @@
 {
-  "name": "poc-apps-core",
+  "name": "core",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "poc/apps/core/src",
   "projectType": "application",
@@ -40,14 +40,14 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "poc-apps-core:build"
+        "buildTarget": "core:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "poc-apps-core:build:development"
+          "buildTarget": "core:build:development"
         },
         "production": {
-          "buildTarget": "poc-apps-core:build:production"
+          "buildTarget": "core:build:production"
         }
       }
     },
