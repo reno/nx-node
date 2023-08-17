@@ -13,7 +13,7 @@
         "outputPath": "dist/poc/apps/core",
         "format": ["cjs"],
         "bundle": false,
-        "main": "poc/apps/core/src/main.ts",
+        "main": "poc/apps/core/src/index.ts",
         "tsConfig": "poc/apps/core/tsconfig.app.json",
         "assets": ["poc/apps/core/src/assets"],
         "generatePackageJson": true,
