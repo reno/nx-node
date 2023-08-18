@@ -1,0 +1,150 @@
+name: CI
+
+on:
+  pull_request: 
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+
+  install-dependencies:
+    name: install-dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: pnpm --frozen-lockfile
+
+      - name: Cache node_modules
+        uses: actions/cache/save@v3
+        with:
+          path: node_modules
+          key: node-modules-${{github.run_id}}
+
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: install-dependencies
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      - name: Read node_modules from cache
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{github.run_id}}
+
+      - name: Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: pnpm --frozen-lockfile
+
+      - name: Run build
+        run: pnpx nx affected --target=build --base=${{ github.event.pull_request.base.sha }} --head=${{ github.event.pull_request.head.sha }}
+
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: install-dependencies
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      - name: Read node_modules from cache
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{github.run_id}}
+
+      - name: Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: pnpm --frozen-lockfile
+
+      - name: Run lint
+        run: pnpx nx affected --target=lint --base=${{ github.event.pull_request.base.sha }} --head=${{ github.event.pull_request.head.sha }}
+
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: install-dependencies
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      - name: Read node_modules from cache
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{github.run_id}}
+
+      - name: Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: pnpm --frozen-lockfile
+
+      - name: Run tests
+        run: pnpx nx affected --target=test --base=${{ github.event.pull_request.base.sha }} --head=${{ github.event.pull_request.head.sha }}
+
+  tsc:
+    name: tsc
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: install-dependencies
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+
+      - name: Read node_modules from cache
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{github.run_id}}
+
+      - name: Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: pnpm --frozen-lockfile
+
+      - name: Run tsc
+        run: pnpx nx affected --target=tsc --base=${{ github.event.pull_request.base.sha }} --head=${{ github.event.pull_request.head.sha }}
